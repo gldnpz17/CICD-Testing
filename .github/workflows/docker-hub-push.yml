@@ -21,13 +21,16 @@ jobs:
     
     - name: Build the Docker image
       working-directory: ./SimpleApi/SimpleApi
-      run: docker build --file "SimpleApi/Dockerfile" --tag "gldnpz/simple-api:${CURRENT_DATETIME}" .
+      run: docker build --file "SimpleApi/Dockerfile" --tag "gldnpz/simple-api:${CURRENT_DATETIME}" --tag "gldnpz/simple-api:latest" .
     
     - name: Login to Docker Hub
       env: 
         ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       run: docker login --username gldnpz --password $ACCESS_TOKEN
     
-    - name: Push to registry
+    - name: Push versioned tag to registry
       run: docker push "gldnpz/simple-api:${CURRENT_DATETIME}"
+    
+    - name: Push latest tag to registry
+      run: docker push "gldnpz/simple-api:latest"
 
