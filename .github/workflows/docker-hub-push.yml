@@ -24,9 +24,10 @@ jobs:
       run: docker build --file "SimpleApi/Dockerfile" --tag "gldnpz/simple-api:${CURRENT_DATETIME}" --tag "gldnpz/simple-api:latest" .
     
     - name: Login to Docker Hub
-      env: 
-        ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      run: docker login --username gldnpz --password $ACCESS_TOKEN
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     
     - name: Push versioned tag to registry
       run: docker push "gldnpz/simple-api:${CURRENT_DATETIME}"
