@@ -28,6 +28,9 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       run: docker login --username gldnpz --password $ACCESS_TOKEN
     
-    - name: Push to registry
+    - name: Push versioned tag to registry
       run: docker push "gldnpz/simple-api:${CURRENT_DATETIME}"
+    
+    - name: Push latest tag to registry
+      run: docker push "gldnpz/simple-api:latest"
 
